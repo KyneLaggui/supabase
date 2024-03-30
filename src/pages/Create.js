@@ -1,8 +1,10 @@
 import supabase from "../config/supabaseClient"
 import { useState } from "react"
-
+import { Navigate, useNavigate } from "react-router-dom"
 
 const Create = () => {
+  
+  const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
   const [method, setMethod] = useState('')
@@ -20,6 +22,7 @@ const Create = () => {
     const {data, error} = await supabase
     .from('smoothies')
     .insert([{title, method, rating}])
+    .select()
     
     if (error) {
       console.log(error)
@@ -29,6 +32,7 @@ const Create = () => {
     if (data) {
       console.log(data)
       setFormError(null)
+      navigate('/')
     }
 
   }

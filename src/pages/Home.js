@@ -36,7 +36,7 @@ const Home = () => {
       {fetchError && (<p>{fetchError}</p>)}
       {smoothies && (
       <div className="smoothies">
-
+        
         <div className="smoothie-grid">
           {smoothies.map(smoothie => (
             <SmoothieCard key={smoothie.id} smoothie={smoothie}/>

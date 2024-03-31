@@ -11,6 +11,32 @@ const Update = () => {
   const [title, setTitle] = useState('')
   const [method, setMethod] = useState('')
   const [rating, setRating] = useState('')
+  const [formError, setFormError] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!title || !method || !rating) {
+      setFormError('Walang laman par')
+      return
+    }
+
+    const { data, error } = await supabase
+    .from('smoothies')
+    .update({ title, method, rating })
+    .eq('id', id)
+    .select()
+
+    if (error) {
+      setFormError('Error par')
+    }
+
+    if (data) {
+      navigate('/')
+      setFormError(null)
+    }
+
+  }
 
 
   useEffect(() => {
@@ -40,7 +66,7 @@ const Update = () => {
   return (
     <div className="page update">
       <div className="page create">
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="title">Title:</label>
           <input 
             type="text" 
@@ -66,7 +92,7 @@ const Update = () => {
 
           <button>Update Smoothie Recipe</button>
 
-          {/* {formError && <p className="error">{formError}</p>} */}
+          {formError && <p className="error">{formError}</p>}
         </form>
       </div>
     </div>

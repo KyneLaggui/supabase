@@ -16,7 +16,6 @@ const SmoothieCard = ({ smoothie, onDelete }) => {
         }
 
         if (data) {
-            console.log(data)
             onDelete(smoothie.id)
         }
     }
